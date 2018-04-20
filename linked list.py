@@ -1,5 +1,6 @@
+
 class ListNode:
-    def __init__(self, data=None, next=None):
+    def __init__(self, data, next=None):
         self.data = data
         self.next = next
 
@@ -48,14 +49,63 @@ class SingleLinkedList:
         elif curr:
             prev.next = curr.next
             curr.next = None
+            
+    def addEnd(self, data):
+        if self.head is None:
+            self.head=data
+        else:
+            temp=self.head
+            while(temp.next != None):
+                temp=temp.next
+            temp.next=data
+            
+    def detectCycle(self):
+        fastptr=self.head
+        slowptr=self.head
+        
+        while(fastptr != None and fastptr.next != None):
+            fastptr=fastptr.next
+            fastptr.next=fastptr.next
+            slowptr=slowptr.next
+            if(slowptr == fastptr):
+                return 1
+        return 0
+    
+               
+    def getCount(self):
+        temp = self.head 
+        count = 0  
+        while (temp):
+            count += 1
+            temp = temp.next
+        return count
 
-    def reverse(self):
-        curr = self.head
-        prev_node = None
-        next_node = None
-        while curr:
-            next_node = curr.next
-            curr.next = prev_node
-            prev_node = curr
-            curr = next_node
-        self.head = prev_node
+    def printList(self):
+        temp=self.head
+        while(temp):
+            print (temp.data)
+            temp=temp.next
+
+                  
+if __name__=='__main__':
+    node = SingleLinkedList()
+    node.append(1)
+    node.append(2)
+    node.append(3)
+    node.append(4)
+    node.append(5)
+    node.append(6)
+    print("new list after append \t")
+    node.printList()
+    print("number of nodes",node.getCount())
+    node.prepend(0)
+    print("new list after prepend \t")
+    node.printList()
+    print("number of nodes",node.getCount())
+    node.addEnd(4)
+    print("cycle is true(1) or false(0):",node.detectCycle())
+    
+            
+        
+    
+    
